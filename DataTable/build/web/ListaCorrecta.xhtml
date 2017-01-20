@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <head>
+        <title>Lista</title>
+    </head>
+    <body>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Ingresa Nombre"/>
+                <h:inputText value="#{listaCorrectaBean.perso.nombre}"/>
+                <h:outputLabel value="Ingresa tu apellido"/>
+                <h:inputText value="#{listaCorrectaBean.perso.apellido}"/>
+                <h:outputLabel value="Selecciona tu sexo:"/>
+                <h:selectOneMenu value="#{listaCorrectaBean.perso.sexo}">
+                    <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                    <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:commandButton value="Agregar" actionListener="#{listaCorrectaBean.agregaPerso()}"/>
+            
+            <h:dataTable value="#{listaCorrectaBean.listaEstatica}" var="correc" rendered="#{listaCorrectaBean.listaEstatica.size()>0 eq true}">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Nombre"/>
+                    </f:facet>
+                    <h:outputLabel value="#{correc.nombre}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Apellidos"/>
+                    </f:facet>
+                    <h:outputLabel value="#{correc.apellido}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Sexo"/>
+                    </f:facet>
+                    <h:outputLabel value="#{correc.sexo}"/>
+                </h:column>
+                <h:column>
+                    <h:commandButton value="Eliminar" actionListener="#{listaCorrectaBean.borraPerso(correc)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </body>
+</html>
