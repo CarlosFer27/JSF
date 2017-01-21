@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Validator</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="2">
+                
+                <h:outputLabel value="Ingresa la Marca del Vehiculo"/>
+                <h:inputText id="inTxtMarca" value="#{validatorBean.carro.marca}"/>
+                
+                <h:outputLabel value="Ingresa el Modelo del Vehiculo"/>
+                <h:inputText id="inTxtModelo" value="#{validatorBean.carro.modelo}"/>
+                
+                <h:outputLabel value="Selecciona el modelo"/>
+                <h:selectOneMenu id="menuAnio" value="#{validatorBean.carro.anio}">
+                    <f:selectItem itemValue="2017" itemLabel="2017"/>
+                    <f:selectItem itemValue="2016" itemLabel="2016"/>
+                    <f:selectItem itemValue="2015" itemLabel="2015"/>
+                    <f:selectItem itemValue="2014" itemLabel="2014"/>
+                    <f:selectItem itemValue="2013" itemLabel="2013"/>
+                    <f:selectItem itemValue="2012" itemLabel="2012"/>
+                    <f:selectItem itemValue="2011" itemLabel="2011"/>
+                    <f:selectItem itemValue="2010" itemLabel="2010"/>
+                    <f:selectItem itemValue="2009" itemLabel="2009"/>
+                    <f:selectItem itemValue="2008" itemLabel="2008"/>
+                    <f:selectItem itemValue="2007" itemLabel="2007"/>
+                    <f:selectItem itemValue="2006" itemLabel="2006"/>
+                </h:selectOneMenu>    
+            </h:panelGrid>
+            
+            <h:commandButton id="botonAgrega" value="Agregar" actionListener="#{validatorBean.agregaCarro()}"/>
+                
+            <h:dataTable value="#{validatorBean.listCarro}" var="list"  rendered="#{validatorBean.listCarro.size()>0}" >
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Marca"/>
+                    </f:facet>   
+                    <h:outputLabel value="#{list.marca}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Modelo"/>
+                    </f:facet>
+                    <h:outputLabel value="#{list.modelo}"/>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Año"/>
+                    </f:facet>
+                    <h:outputLabel value="#{list.anio}"/>
+                </h:column>
+                
+                <h:column>
+                    <h:commandLink id="comLinkBorrar" value="Borrar" actionListener="#{validatorBean.eliminaCarro(list)}"/>
+                </h:column>
+            </h:dataTable>
+            
+        </h:form>
+    </h:body>
+</html>
+
