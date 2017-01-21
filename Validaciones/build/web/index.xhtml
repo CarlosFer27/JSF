@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Validaciones</title>
+    </h:head>
+    <h:body>
+        <!-- Siempre iniciamos con la etiqueta del formulario-->
+        <h:form>
+            <!-- el panelGrid nos va a ayudar a darle formato a nuestra pagina. en este caso seran 3 columnas
+            donde se iran depositando los elementos que nosotros creemos, por ejemplo, una columna para la leyenda,
+            otra columna para el texto que vamos a recibir y la tercer columna para el mensaje de error si es el caso-->
+            <h:panelGrid columns="3">
+                
+                <h:outputLabel value="Ingresa tu nombre"/> 
+                <h:inputText id="inpTxtName" value="#{validacionesBean.humano.name}" required="true"/> 
+                <h:message for="inpTxtName"/> 
+                
+                <h:outputLabel value="Ingresa tu apellido"/>
+                <h:inputText id="inpTxtLastName" value="#{validacionesBean.humano.lastName}" required="true"/>
+                <h:message for="inpTxtLastName" />
+                
+                <h:outputLabel value="Ingresa tu edad"/>
+                <h:inputText id="inpTextAge" value="#{validacionesBean.humano.age}" required="true">
+                    <f:validateLongRange for="inpTextAge" minimum="18" maximum="100"/>
+                </h:inputText>
+                <h:message for="inpTextAge"/>
+                
+                <h:outputLabel value="Ingresa tu sexo (F o M)"/>
+                <h:inputText id="inpTxtSex" value="#{validacionesBean.humano.sex}" validator="#{validacionesBean.validateSex}"/>
+                <h:message for="inpTxtSex"/> 
+                
+                
+            </h:panelGrid>
+            <h:commandButton value="Agregar" actionListener="#{validacionesBean.agregaHuman()}"/>
+            <h:dataTable value="#{validacionesBean.listHuman}" var="val" rendered="#{validacionesBean.listHuman.size()>0}">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Nombre"/>
+                    </f:facet>    
+                    <h:outputLabel value="#{val.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Apellido"/>
+                    </f:facet>
+                    <h:outputLabel value="#{val.lastName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Sexo"/>
+                    </f:facet>
+                    <h:outputLabel value="#{val.sex}"/>
+                </h:column>
+                <h:column>
+                    <h:commandLink value="Eliminar" actionListener="#{validacionesBean.eliminaHuman(val)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+
